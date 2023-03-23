@@ -9,7 +9,13 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    "baseUrl": ".",
+    "paths": {
+      "$components/*": [
+        "src/lib/shared/components/*"
+      ],
+    }
   }
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
   //

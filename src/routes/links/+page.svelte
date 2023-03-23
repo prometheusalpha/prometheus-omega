@@ -1,5 +1,5 @@
 <script lang="ts">
-  import LinkCard from "../../lib/shared/components/link/LinkCard.svelte";
+  import LinkCard from "$components/link/LinkCard.svelte";
   import type { ActionData, PageData } from "./$types";
   export let data: PageData;
   export let form: ActionData;
