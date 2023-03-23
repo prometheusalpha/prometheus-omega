@@ -31,7 +31,7 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
       imageUrl = ogImage;
     } else if (ogImage instanceof Array) {
       imageUrl = ogImage[0].url;
-    } else {
+    } else if (ogImage !== undefined) {
       imageUrl = (ogImage as ImageObject).url;
     }
     const card = {

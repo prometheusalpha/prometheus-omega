@@ -1,39 +1,40 @@
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 
-export interface NoteData {
+export interface RemindData {
   note: string;
   created: Date;
   modified: Date;
+  deadline: Date;
 }
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
   const session = await getSession();
 
-  let { data: notes, error } = await supabase.from("notes").select("*");
+  let { data: reminders, error } = await supabase.from("reminds").select("*");
 
-  return { session, notes };
+  return { session, reminders };
 }) satisfies PageServerLoad;
 
 export const actions = {
   update: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();
-    const note = formData.get("note") as string;
+    const reminder = formData.get("reminder") as string;
 
-    if (!note) {
+    if (!reminder) {
       return fail(400, {});
     }
 
     const session = await getSession();
 
-    const { error } = await supabase.from("notes").upsert({
-      content: note,
+    const { error } = await supabase.from("reminds").upsert({
+      note: reminder,
+      deadline: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     });
 
     if (error) {
       return fail(500, {});
     }
-
   },
   delete: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();

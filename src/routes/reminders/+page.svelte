@@ -1,13 +1,13 @@
 <script lang="ts">
-  import NoteCard from "$lib/shared/components/note/NoteCard.svelte";
+  import Reminder from "$lib/shared/components/reminder/Reminder.svelte";
   import type { ActionData, PageData } from "./$types";
   export let data: PageData;
   export let form: ActionData;
 
-  let { session, notes } = data;
+  let { session, reminders } = data;
 
   // function to delete a note
-  let deleteNote = async (id: string) => {
+  let markAsDone = async (id: string) => {
     let form = new FormData();
     form.append("id", id);
     let res = await fetch(`?/delete`, {
@@ -17,7 +17,7 @@
     });
     let data = await res.json();
     if (data.type === "success") {
-      notes = notes.filter((note: any) => note.id !== id);
+      reminders = reminders.filter((note: any) => note.id !== id);
     }
   };
 </script>
@@ -30,10 +30,10 @@
     <form action="?/update" method="post" bind:this={form} class="flex gap-5">
       <input
         type="text"
-        id="note"
-        name="note"
+        id="reminder"
+        name="reminder"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:outline-none"
-        placeholder="What are you thinking about?"
+        placeholder="What do you have to do?"
         required
       />
       <button
@@ -45,9 +45,10 @@
   </div>
 
   <!-- loop the notes -->
-  <div class="grid grid-cols-4 gap-5">
-    {#each notes as note}
-      <NoteCard {note} {deleteNote} />
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-5">
+    {#each reminders as reminder}
+      <Reminder {reminder} {markAsDone} />
+      <!-- <NoteCard {note} deleteNote={markAsDone} /> -->
     {/each}
   </div>
 </div>
