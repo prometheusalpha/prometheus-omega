@@ -9,17 +9,17 @@ const config = {
 
   kit: {
     // add aliases
-    vite: {
-      resolve: {
-        alias: {
-          $components: "./src/lib/shared/components",
-          $lib: "./src/lib",
-          $routes: "./src/routes",
-          $stores: "./src/stores",
-          $utils: "./src/utils",
-        },
-      },
-    },
+    // vite: {
+    //   resolve: {
+    //     alias: {
+    //       $components: "./src/lib/shared/components",
+    //       $lib: "./src/lib",
+    //       $routes: "./src/routes",
+    //       $stores: "./src/stores",
+    //       $utils: "./src/utils",
+    //     },
+    //   },
+    // },
     // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
     // If your environment is not supported or you settled on a specific environment, switch out the adapter.
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.

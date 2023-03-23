@@ -23,7 +23,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.9.0",
 		"@supabase/supabase-js": "^2.12.0",
+		"open-graph-scraper": "^5.2.2",
 		"pnpm": "^7.30.0"
 	}
 }
