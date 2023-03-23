@@ -17,8 +17,5 @@
     >
       {card.og_title || "Untitled"}
     </h5>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-      {card.og_description || "No description"}
-    </p>
   </div>
 </a>

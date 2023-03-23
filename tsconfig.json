@@ -12,6 +12,12 @@
     "target": "es2015",
     "baseUrl": ".",
     "paths": {
+      "$lib": [
+        "./src/lib"
+      ],
+      "$lib/*": [
+        "./src/lib/*"
+      ],
       "$components/*": [
         "src/lib/shared/components/*"
       ],
