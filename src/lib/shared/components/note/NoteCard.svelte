@@ -4,9 +4,9 @@
 </script>
 
 <div
-  class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+  class="p-6 bg-white border border-zinc-200 rounded-lg shadow hover:bg-zinc-100 dark:bg-zinc-800 dark:border-zinc-700 dark:hover:bg-zinc-700 flex flex-col justify-between"
 >
-  <p class="font-normal text-gray-700 dark:text-gray-200">
+  <p class="font-normal text-zinc-700 dark:text-zinc-200">
     {note.content}
   </p>
   <div class="flex justify-end pt-4">

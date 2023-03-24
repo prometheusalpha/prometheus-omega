@@ -23,15 +23,25 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
   let cards: LinkCardData[] = [];
 
   for (links of links) {
-    const options = { url: links.link };
-    const { result } = await ogs(options);
-    const { ogTitle, ogDescription, ogImage } = result;
+    const options = { url: links.link as string };
+    let ogTitle, ogDescription, ogImage;
+
+    try {
+      const { result } = await ogs(options);
+      ({ ogTitle, ogDescription, ogImage } = result);
+    } catch (error) {
+      ({ ogTitle, ogDescription, ogImage } = {
+        ogTitle: "Untitled",
+        ogDescription: "No description",
+        ogImage: "",
+      });
+    }
     let imageUrl = "";
     if (typeof ogImage === "string") {
       imageUrl = ogImage;
     } else if (ogImage instanceof Array) {
       imageUrl = ogImage[0].url;
-    } else if (ogImage !== undefined) {
+    } else if (ogImage !== null && typeof ogImage === "object") {
       imageUrl = (ogImage as ImageObject).url;
     }
     const card = {

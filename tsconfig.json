@@ -21,6 +21,9 @@
       "$components/*": [
         "src/lib/shared/components/*"
       ],
+      "$assets/*": [
+        "src/lib/shared/assets/*"
+      ],
     }
   }
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

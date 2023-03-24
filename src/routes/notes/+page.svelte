@@ -32,22 +32,32 @@
         type="text"
         id="note"
         name="note"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:outline-none"
+        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500 focus:outline-none"
         placeholder="What are you thinking about?"
         required
       />
       <button
         type="submit"
-        class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="inline-flex items-center px-5 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >Add</button
       >
     </form>
   </div>
 
+  {#await notes}
+    <div class="text-center">
+      <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
+    </div>
+  {:then notes}
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-5">
+      {#each notes as note}
+        <NoteCard {note} {deleteNote} />
+      {/each}
+    </div>
+  {:catch error}
+    <div class="text-center">
+      <p class="text-zinc-500 dark:text-zinc-400">Error: {error.message}</p>
+    </div>
+  {/await}
   <!-- loop the notes -->
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
-    {#each notes as note}
-      <NoteCard {note} {deleteNote} />
-    {/each}
-  </div>
 </div>
