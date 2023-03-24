@@ -6,7 +6,6 @@
 
   let { session, reminders } = data;
 
-  // function to delete a note
   let markAsDone = async (id: string) => {
     let form = new FormData();
     form.append("id", id);
@@ -23,7 +22,7 @@
 </script>
 
 <div class="p-5">
-  <h1 class="font-bold text-4xl py-5">Notes</h1>
+  <h1 class="font-bold text-4xl py-5">Reminders</h1>
 
   <!-- input new notes -->
   <div class="py-5">
@@ -45,7 +44,7 @@
   </div>
 
   <!-- loop the notes -->
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-5">
+  <div class="space-y-5">
     {#each reminders as reminder}
       <Reminder {reminder} {markAsDone} />
       <!-- <NoteCard {note} deleteNote={markAsDone} /> -->

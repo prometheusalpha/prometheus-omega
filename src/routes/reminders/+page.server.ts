@@ -40,7 +40,7 @@ export const actions = {
     const formData = await request.formData();
     const id = formData.get("id") as string;
 
-    const { error } = await supabase.from("notes").delete().eq("id", id);
+    const { error } = await supabase.from("reminds").delete().eq("id", id);
     if (error) {
       return fail(500, {});
     }

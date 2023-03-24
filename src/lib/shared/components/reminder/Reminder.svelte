@@ -1,28 +1,38 @@
 <script lang="ts">
-  export let reminder: any;
+  export let reminder: {
+    id: string;
+    note: string;
+    deadline: Date;
+  };
   export let markAsDone: any;
 
   let formatDate = (date: Date) => {
-    return date.toLocaleDateString("vn-VN");
+    let d = new Date(date);
+    return `${d.getDate()}/${
+      d.getMonth() + 1
+    }/${d.getFullYear()} - ${d.getHours()}:${d.getMinutes()}`;
   };
 </script>
 
-<div class="flex items-center pl-3">
-  <input
-    id="list-radio-license"
-    type="radio"
-    value=""
-    on:click={() => markAsDone(reminder.id)}
-    name="list-radio"
-    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-  />
+<input
+  id="list-radio-license-${reminder.id}"
+  type="radio"
+  value=""
+  on:click={() => markAsDone(reminder.id)}
+  name="list-radio"
+  class="hidden"
+/>
+<div class="flex items-center pl-3 hover:bg-gray-800 rounded-xl cursor-pointer group">
+  <div class="rounded-full w-6 h-6 border border-gray-600 group-hover:bg-gray-700" />
   <label
-    for="list-radio-license"
+    for="list-radio-license-${reminder.id}"
     class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
   >
-    <div class="">
+    <p class="text-lg">
+      {reminder.note}
+    </p>
+    <div class="text-gray-500">
       {formatDate(reminder.deadline)}
     </div>
-    {reminder.note}
   </label>
 </div>

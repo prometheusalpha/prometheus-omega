@@ -45,7 +45,7 @@
   </div>
 
   <!-- loop the notes -->
-  <div class="grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
     {#each notes as note}
       <NoteCard {note} {deleteNote} />
     {/each}

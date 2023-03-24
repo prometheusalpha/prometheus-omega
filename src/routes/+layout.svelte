@@ -19,7 +19,7 @@
 </script>
 
 <div class="bg-gray-900 text-white flex min-h-screen">
-  <div class="min-w-xl p-5 border-r border-gray-500">
+  <div class="w-[16rem] p-5 border-r border-gray-500 grow-0">
     <h1 class="font-bold text-2xl py-4">Prometheus Omega</h1>
     <Menu />
   </div>

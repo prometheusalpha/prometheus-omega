@@ -37,7 +37,7 @@
   </div>
 
   <!-- loop the links -->
-  <div class="grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5">
     {#each cards as card}
       <LinkCard {card} />
     {/each}
