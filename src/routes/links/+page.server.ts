@@ -2,6 +2,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import ogs from "open-graph-scraper";
 import type { ImageObject } from "open-graph-scraper/lib/types";
+import { getOpenGraph } from "$shared/logic/openGraph";
 
 export interface LinkCardData {
   link: string;
@@ -27,8 +28,10 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
     let ogTitle, ogDescription, ogImage;
 
     try {
-      const { result } = await ogs(options);
-      ({ ogTitle, ogDescription, ogImage } = result);
+      const { ogTitle, ogDescription, ogImage } = await getOpenGraph(
+        links.link as string
+      );
+      // ({ ogTitle, ogDescription, ogImage } = result);
     } catch (error) {
       ({ ogTitle, ogDescription, ogImage } = {
         ogTitle: "Untitled",
@@ -36,14 +39,14 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
         ogImage: "",
       });
     }
-    let imageUrl = "";
-    if (typeof ogImage === "string") {
-      imageUrl = ogImage;
-    } else if (ogImage instanceof Array) {
-      imageUrl = ogImage[0].url;
-    } else if (ogImage !== null && typeof ogImage === "object") {
-      imageUrl = (ogImage as ImageObject).url;
-    }
+    let imageUrl = ogImage || "";
+    // if (typeof ogImage === "string") {
+    //   imageUrl = ogImage;
+    // } else if (ogImage instanceof Array) {
+    //   imageUrl = ogImage[0].url;
+    // } else if (ogImage !== null && typeof ogImage === "object") {
+    //   imageUrl = (ogImage as ImageObject).url;
+    // }
     const card = {
       link: links.link as string,
       created_at: links.created_at as Date,
