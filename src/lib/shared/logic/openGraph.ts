@@ -1,4 +1,4 @@
-// write a function that takes in a url and returns the open graph data
+import { parse } from "node-html-parser";
 
 export const getOpenGraph = async (url: string): Promise<{
   ogTitle: string;
@@ -8,9 +8,7 @@ export const getOpenGraph = async (url: string): Promise<{
   return await fetch(url)
     .then((res) => res.text())
     .then((body) => {
-      // beautiful soup
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(body, "text/html");
+      const doc = parse(body);
       const ogTitle = doc.querySelector("title")?.textContent || "Untitled";
       const ogDescription =
         doc
@@ -31,7 +29,6 @@ export const getOpenGraph = async (url: string): Promise<{
       };
     })
     .catch((err) => {
-      console.log(err);
       return {
         ogTitle: "Untitled",
         ogDescription: "No description",

@@ -23,14 +23,14 @@
   class="hidden"
 />
 <div
-  class="flex items-center pl-3 hover:bg-zinc-800 rounded-xl cursor-pointer group"
+  class="group flex cursor-pointer items-center rounded-xl pl-3 hover:bg-zinc-800"
 >
   <div
-    class="rounded-full w-6 h-6 border border-zinc-600 group-hover:bg-zinc-700"
+    class="h-6 w-6 rounded-full border border-zinc-600 group-hover:bg-zinc-700"
   />
   <label
     for="list-radio-license-${reminder.id}"
-    class="w-full py-3 ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+    class="ml-2 w-full py-3 text-sm font-medium text-zinc-900 dark:text-zinc-300"
   >
     <p class="text-lg">
       {reminder.note}

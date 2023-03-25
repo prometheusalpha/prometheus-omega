@@ -11,13 +11,14 @@ const config = {
     // add aliases
     // vite: {
     //   resolve: {
-    //     alias: {
-    //       $components: "./src/lib/shared/components",
-    //       $lib: "./src/lib",
-    //       $routes: "./src/routes",
-    //       $stores: "./src/stores",
-    //       $utils: "./src/utils",
-    //     },
+    alias: {
+      $components: "./src/lib/shared/components",
+      $lib: "./src/lib",
+      $routes: "./src/routes",
+      $stores: "./src/stores",
+      $utils: "./src/utils",
+      $shared: "./src/lib/shared",
+    },
     //   },
     // },
     // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.

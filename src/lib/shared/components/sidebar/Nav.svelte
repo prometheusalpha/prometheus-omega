@@ -1,4 +1,4 @@
-<ul class="space-y-2">
+<ul class="flex justify-around bg-zinc-900 py-2">
   <li>
     <a
       href="/"
@@ -14,7 +14,6 @@
           d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
         /></svg
       >
-      <span class="ml-3">Dashboard</span>
     </a>
   </li>
   <li>
@@ -36,7 +35,6 @@
           d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
         />
       </svg>
-      <span class="ml-3 flex-1 whitespace-nowrap">Links</span>
     </a>
   </li>
   <li>
@@ -56,7 +54,6 @@
           clip-rule="evenodd"
         />
       </svg>
-      <span class="ml-3 flex-1 whitespace-nowrap">Notes</span>
     </a>
   </li>
   <li>
@@ -79,8 +76,6 @@
           clip-rule="evenodd"
         />
       </svg>
-
-      <span class="ml-3 flex-1 whitespace-nowrap">Reminders</span>
     </a>
   </li>
 </ul>

@@ -4,6 +4,7 @@
   import { invalidate } from "$app/navigation";
   import { onMount } from "svelte";
   import type { LayoutData } from "./$types";
+  import Nav from "$lib/shared/components/sidebar/Nav.svelte";
 
   export let data: LayoutData;
 
@@ -22,15 +23,20 @@
   });
 </script>
 
-<div class="bg-zinc-900 text-white flex min-h-screen">
+<div class="relative min-h-screen bg-zinc-900 text-white">
   <div
-    class="w-[20rem] min-w-[20rem] max-w-[20rem] p-5 border-r border-zinc-700"
+    class="fixed z-[12] h-screen w-[16rem] border-r border-zinc-700 bg-zinc-900 p-5 max-md:hidden max-md:w-[50vw]"
   >
-    <h1 class="font-bold text-2xl py-4">Prometheus Omega</h1>
+    <h1 class="py-4 text-2xl font-bold">Prometheus Omega</h1>
     <Menu />
   </div>
+  <div class="fixed bottom-0 z-[13] w-screen md:hidden">
+    <Nav />
+  </div>
   {#if isPageLoaded}
-    <div class="w-[calc(100vw-20rem)]">
+    <div
+      class="absolute top-0 right-0 z-10 min-h-screen bg-zinc-900 max-md:w-screen md:left-64"
+    >
       <slot />
     </div>
   {/if}
