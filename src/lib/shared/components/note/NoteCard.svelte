@@ -6,7 +6,7 @@
 <div
   class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 shadow hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
 >
-  <p class="font-normal text-zinc-700 dark:text-zinc-200">
+  <p class="font-normal text-zinc-700 dark:text-zinc-200 break-words">
     {note.content}
   </p>
   <div class="flex justify-end pt-4">

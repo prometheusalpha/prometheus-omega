@@ -5,9 +5,14 @@ import { getOpenGraph } from "$shared/logic/openGraph";
 export interface LinkCardData {
   link: string;
   created_at: Date;
-  og_title: string;
-  og_description: string;
-  og_image: string;
+  // og_title: string;
+  // og_description: string;
+  // og_image: string;
+  data: Promise<{
+    ogTitle: string;
+    ogDescription: string;
+    ogImage: string;
+  }>;
 }
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
@@ -23,25 +28,25 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
 
   for (links of links) {
     let ogTitle, ogDescription, ogImage;
+    let data;
 
     try {
-      ({ ogTitle, ogDescription, ogImage } = await getOpenGraph(
-        links.link as string
-      ));
+      data = getOpenGraph(links.link as string);
     } catch (error) {
-      ({ ogTitle, ogDescription, ogImage } = {
-        ogTitle: "Untitled",
-        ogDescription: "No description",
-        ogImage: "",
-      });
+      // ({ ogTitle, ogDescription, ogImage } = {
+      //   ogTitle: "Untitled",
+      //   ogDescription: "No description",
+      //   ogImage: "",
+      // });
     }
     let imageUrl = ogImage || "";
     const card = {
       link: links.link as string,
       created_at: links.created_at as Date,
-      og_title: ogTitle as string,
-      og_description: ogDescription as string,
-      og_image: imageUrl,
+      data: data || Promise.resolve({} as any),
+      // og_title: ogTitle as string,
+      // og_description: ogDescription as string,
+      // og_image: imageUrl,
     };
     cards.push(card);
   }

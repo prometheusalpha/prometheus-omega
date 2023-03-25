@@ -9,27 +9,50 @@
 <a
   target="_blank"
   href={card.link}
-  class="flex flex-col md:flex-row md:h-[8rem] justify-between rounded-lg border border-zinc-200 bg-white shadow-md hover:bg-zinc-700
-  dark:border-zinc-700 dark:bg-zinc-800"
+  class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md hover:bg-zinc-700 dark:border-zinc-700 dark:bg-zinc-800
+  md:h-[8rem] md:flex-row"
 >
-  <div class="flex flex-col justify-between p-5 pr-12">
-    <div class="">
-      <h5
-        class="break-all text-lg font-semibold tracking-tight text-zinc-900 dark:text-white"
-      >
-        {card.og_title || "Untitled"}
-      </h5>
-      <p class="text-sm text-zinc-400 py-2">
-        {card.og_description || "No description"}
-      </p>
+  {#await card.data}
+    <div class="flex flex-col justify-between p-5 pr-12">
+      <div class="">
+        <h5
+          class="truncate break-all text-lg font-semibold tracking-tight text-zinc-900 dark:text-white"
+        >
+          {"Untitled"}
+        </h5>
+        <p class="text-ellipsis py-2 text-sm text-zinc-400">
+          {"No description"}
+        </p>
+      </div>
+      <div class="truncate text-sm text-zinc-300">
+        {card.link}
+      </div>
     </div>
-    <div class="text-sm text-zinc-300">
-      {card.link}
+    <img
+      class="max-h-[8rem] rounded-lg object-cover md:w-[16rem]"
+      src={noimage}
+      alt=""
+    />
+  {:then data}
+    <div class="flex flex-col justify-between p-5 pr-12">
+      <div class="">
+        <h5
+          class="truncate break-all text-lg font-semibold tracking-tight text-zinc-900 dark:text-white"
+        >
+          {data.ogTitle || "Untitled"}
+        </h5>
+        <p class="text-ellipsis py-2 text-sm text-zinc-400">
+          {data.ogDescription || "No description"}
+        </p>
+      </div>
+      <div class="truncate text-sm text-zinc-300">
+        {card.link}
+      </div>
     </div>
-  </div>
-  <img
-    class="md:w-[16rem] max-h-[8rem] rounded-lg object-cover"
-    src={card.og_image || noimage}
-    alt=""
-  />
+    <img
+      class="max-h-[8rem] rounded-lg object-cover md:w-[16rem]"
+      src={data.ogImage || noimage}
+      alt=""
+    />
+  {/await}
 </a>
