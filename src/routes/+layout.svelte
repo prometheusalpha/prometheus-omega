@@ -35,7 +35,7 @@
   </div>
   {#if isPageLoaded}
     <div
-      class="absolute top-0 right-0 z-10 min-h-screen bg-zinc-900 max-md:w-screen md:left-64"
+      class="absolute top-0 right-0 z-10 min-h-screen bg-zinc-900 px-5 pb-12 max-md:w-screen md:left-64"
     >
       <slot />
     </div>

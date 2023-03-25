@@ -9,7 +9,7 @@
 <a
   target="_blank"
   href={card.link}
-  class="flex h-[8rem] justify-between rounded-lg border border-zinc-200 bg-white shadow-md hover:bg-zinc-700
+  class="flex flex-col md:flex-row md:h-[8rem] justify-between rounded-lg border border-zinc-200 bg-white shadow-md hover:bg-zinc-700
   dark:border-zinc-700 dark:bg-zinc-800"
 >
   <div class="flex flex-col justify-between p-5 pr-12">
@@ -19,7 +19,7 @@
       >
         {card.og_title || "Untitled"}
       </h5>
-      <p class="text-sm text-zinc-400">
+      <p class="text-sm text-zinc-400 py-2">
         {card.og_description || "No description"}
       </p>
     </div>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <img
-    class="w-[16rem] rounded-r-lg object-cover"
+    class="md:w-[16rem] max-h-[8rem] rounded-lg object-cover"
     src={card.og_image || noimage}
     alt=""
   />

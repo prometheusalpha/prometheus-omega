@@ -1,4 +1,4 @@
-<ul class="flex justify-around bg-zinc-900 py-2">
+<ul class="flex justify-around bg-zinc-800 py-2">
   <li>
     <a
       href="/"

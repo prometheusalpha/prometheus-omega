@@ -49,7 +49,7 @@
       <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
     </div>
   {:then notes}
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-5">
+    <div class="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-5">
       {#each notes as note}
         <NoteCard {note} {deleteNote} />
       {/each}
