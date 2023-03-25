@@ -7,20 +7,20 @@
   let { messages } = data;
 </script>
 
-<div class="flex h-screen flex-col">
+<div class="flex h-[calc(100vh-6rem)] flex-col md:h-screen">
   <div class="border-b border-zinc-700">
     <h1 class="p-5 text-4xl font-bold">Command</h1>
   </div>
   <div class="grow">
     {#each messages as message}
       {#if message.from_user}
-        <div class="p-2 flex justify-end">
+        <div class="flex justify-end p-2 pl-12">
           <div class="inline-block rounded-lg bg-green-800 p-3">
             <p class="text-gray-900 dark:text-white">{message.content}</p>
           </div>
         </div>
       {:else}
-        <div class="p-2">
+        <div class="p-2 pr-12">
           <div class="inline-block rounded-lg bg-zinc-800 p-3">
             <p class="text-gray-900 dark:text-white">{message.content}</p>
           </div>
