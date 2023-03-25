@@ -1,10 +1,10 @@
 {
-  "name": "Dev'Coffee",
-  "short_name": "DevCoffee",
+  "name": "Prometheus Omega",
+  "short_name": "Omega",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fdfdfd",
-  "theme_color": "#db4938",
+  "background_color": "#18181b",
+  "theme_color": "#18181b",
   "orientation": "portrait-primary",
   "icons": [
     {
