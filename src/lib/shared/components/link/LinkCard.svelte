@@ -9,7 +9,7 @@
 <a
   target="_blank"
   href={card.link}
-  class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md hover:bg-zinc-700 dark:border-zinc-700 dark:bg-zinc-800
+  class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900
   md:h-[8rem] md:flex-row"
 >
   {#await card.data}
