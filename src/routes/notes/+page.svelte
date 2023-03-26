@@ -4,10 +4,6 @@
   export let data: PageData;
   export let form: ActionData;
 
-  // let { session, notes } = data;
-
-  // let notes: any = [];
-
   // function to delete a note
   let deleteNote = async (id: string) => {
     let form = new FormData();
@@ -48,7 +44,7 @@
   </div>
 
   {#await data.stream.notes}
-    <div class="text-center">
+    <div class="text-center p-5">
       <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
     </div>
   {:then notes}

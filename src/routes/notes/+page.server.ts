@@ -8,17 +8,11 @@ export interface NoteData {
 }
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
-  // const session = await getSession();
-
   return {
     stream: {
-      notes: supabase.from("notes").select("*").select("*"),
+      notes: Promise.resolve(supabase.from("notes").select("*")),
     },
   };
-
-  // let { data: notes, error } = await supabase.from("notes").select("*");
-
-  // return { session, notes };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -29,8 +23,6 @@ export const actions = {
     if (!note) {
       return fail(400, {});
     }
-
-    const session = await getSession();
 
     const { error } = await supabase.from("notes").upsert({
       content: note,
