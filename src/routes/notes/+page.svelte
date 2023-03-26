@@ -4,7 +4,9 @@
   export let data: PageData;
   export let form: ActionData;
 
-  let { session, notes } = data;
+  // let { session, notes } = data;
+
+  // let notes: any = [];
 
   // function to delete a note
   let deleteNote = async (id: string) => {
@@ -16,8 +18,9 @@
       body: form,
     });
     let data = await res.json();
+    // reload the page
     if (data.type === "success") {
-      notes = notes.filter((note: any) => note.id !== id);
+      location.reload();
     }
   };
 </script>
@@ -44,13 +47,13 @@
     </form>
   </div>
 
-  {#await notes}
+  {#await data.stream.notes}
     <div class="text-center">
       <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
     </div>
   {:then notes}
-    <div class="grid md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-5">
-      {#each notes as note}
+    <div class="grid gap-5 md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))]">
+      {#each notes.data as note}
         <NoteCard {note} {deleteNote} />
       {/each}
     </div>

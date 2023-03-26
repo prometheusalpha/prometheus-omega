@@ -1,32 +1,53 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { ActionData, PageData } from "./$types";
 
   export let data: PageData;
   export let form: ActionData;
 
-  let { messages } = data;
+  const scrollToBottom = () => {
+    const dummy = document.querySelector(".dummy");
+    dummy?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Scroll to bottom on mount
+  onMount(() => {
+    scrollToBottom();
+  });
+
+  // Scroll to bottom on new message
+  $: if (data.stream.messages) {
+    data.stream.messages.then(() => {
+      scrollToBottom();
+    });
+  }
 </script>
 
 <div class="flex h-[calc(100vh-6rem)] flex-col md:h-screen">
   <div class="border-b border-zinc-700">
     <h1 class="p-5 text-4xl font-bold">Command</h1>
   </div>
-  <div class="grow">
-    {#each messages as message}
-      {#if message.from_user}
-        <div class="flex justify-end p-2 pl-12">
-          <div class="inline-block rounded-lg bg-green-800 p-3">
-            <p class="text-gray-900 dark:text-white">{message.content}</p>
-          </div>
-        </div>
-      {:else}
-        <div class="p-2 pr-12">
-          <div class="inline-block rounded-lg bg-zinc-800 p-3">
-            <p class="text-gray-900 dark:text-white">{message.content}</p>
-          </div>
-        </div>
-      {/if}
-    {/each}
+  <div class="min-h-0 grow overflow-y-scroll">
+    <div class="">
+      {#await data.stream.messages then messages}
+        {#each messages.data as message}
+          {#if message.from_user}
+            <div class="flex justify-end p-2 pl-12">
+              <div class="inline-block rounded-lg bg-green-800 p-3">
+                <p class="text-gray-900 dark:text-white">{message.content}</p>
+              </div>
+            </div>
+          {:else}
+            <div class="p-2 pr-12">
+              <div class="inline-block rounded-lg bg-zinc-800 p-3">
+                <p class="text-gray-900 dark:text-white">{message.content}</p>
+              </div>
+            </div>
+          {/if}
+        {/each}
+      {/await}
+      <div class="dummy" />
+    </div>
   </div>
   <div class="border-t border-zinc-700 p-3">
     <form action="?/update" method="post" bind:this={form} class="flex gap-5">

@@ -8,11 +8,17 @@ export interface NoteData {
 }
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
-  const session = await getSession();
+  // const session = await getSession();
 
-  let { data: notes, error } = await supabase.from("notes").select("*");
+  return {
+    stream: {
+      notes: supabase.from("notes").select("*").select("*"),
+    },
+  };
 
-  return { session, notes };
+  // let { data: notes, error } = await supabase.from("notes").select("*");
+
+  // return { session, notes };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -33,7 +39,6 @@ export const actions = {
     if (error) {
       return fail(500, {});
     }
-
   },
   delete: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();

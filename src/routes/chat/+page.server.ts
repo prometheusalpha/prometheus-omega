@@ -4,8 +4,13 @@ import { process, type Command } from "$lib/shared/logic/commandParser";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load = (async ({ locals: { supabase, getSession } }) => {
-  let { data: messages, error } = await supabase.from("messages").select("*");
-  return { messages };
+  // let { data: messages, error } = await supabase.from("messages").select("*");
+  return {
+    stream: {
+      messages: Promise.resolve(supabase.from("messages").select("*")),
+    },
+  };
+  // return { messages };
 }) satisfies PageServerLoad;
 
 // map between the type and the column name
