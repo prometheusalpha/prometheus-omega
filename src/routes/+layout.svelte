@@ -23,21 +23,21 @@
   });
 </script>
 
-<div class="relative min-h-screen bg-zinc-900 text-white">
+<div class="relative flex h-screen bg-zinc-900 text-white max-md:flex-col">
   <div
-    class="fixed z-[12] h-screen w-[16rem] border-r border-zinc-700 bg-zinc-900 p-5 max-md:hidden max-md:w-[50vw]"
+    class="z-[12] h-screen border-r border-zinc-700 bg-zinc-900 px-4 py-3 max-md:hidden max-md:w-[50vw]"
   >
-    <h1 class="py-4 text-2xl font-bold">Prometheus Omega</h1>
+    <!-- <h1 class="py-4 text-2xl font-bold">Prometheus Omega</h1> -->
     <Menu />
   </div>
-  <div class="fixed bottom-0 z-[13] w-screen md:hidden">
+  <div class="z-10 md:h-screen grow overflow-y-auto">
+    {#if isPageLoaded}
+      <div class="bg-zinc-900">
+        <slot />
+      </div>
+    {/if}
+  </div>
+  <div class="bottom-0 z-[13] w-screen md:hidden">
     <Nav />
   </div>
-  {#if isPageLoaded}
-    <div
-      class="absolute top-0 right-0 z-10 min-h-screen bg-zinc-900 max-md:w-screen max-md:pb-24 md:left-64"
-    >
-      <slot />
-    </div>
-  {/if}
 </div>

@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="flex h-[calc(100vh-6rem)] flex-col md:h-screen">
+<div class="flex flex-col max-md:h-[calc(100vh-5rem)]">
   <div class="border-b border-zinc-700">
     <h1 class="p-5 text-4xl font-bold">Command</h1>
   </div>
