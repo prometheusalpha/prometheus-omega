@@ -1,29 +1,28 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { afterUpdate, beforeUpdate, onMount } from "svelte";
   import type { ActionData, PageData } from "./$types";
 
   export let data: PageData;
   export let form: ActionData;
+  const dummy = document.querySelector(".dummy") as HTMLDivElement;
 
   const scrollToBottom = () => {
-    const dummy = document.querySelector(".dummy");
+    console.log("scrolling");
     dummy?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Scroll to bottom on mount
   onMount(() => {
     scrollToBottom();
   });
 
-  // Scroll to bottom on new message
-  $: if (data.stream.messages) {
-    data.stream.messages.then(() => {
+  $: data.stream.messages.then(() => {
+    setTimeout(() => {
       scrollToBottom();
-    });
-  }
+    }, 2000);
+  });
 </script>
 
-<div class="flex flex-col max-md:h-[calc(100vh-5rem)]">
+<div class="flex h-screen flex-col max-md:h-[calc(100vh-5rem)]">
   <div class="border-b border-zinc-700">
     <h1 class="p-5 text-4xl font-bold">Command</h1>
   </div>
@@ -62,6 +61,7 @@
       />
       <button
         type="submit"
+        id="submit"
         class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >Go</button
       >

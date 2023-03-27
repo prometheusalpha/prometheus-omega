@@ -14,23 +14,16 @@
   };
 </script>
 
-<input
-  id="list-radio-license-${reminder.id}"
-  type="radio"
-  value=""
-  on:click={() => markAsDone(reminder.id)}
-  name="list-radio"
-  class="hidden"
-/>
 <div
   class="group flex cursor-pointer items-center rounded-xl pl-3 hover:bg-zinc-800"
+  on:click={() => markAsDone(reminder.id)}
+  on:keydown={() => markAsDone(reminder.id)}
 >
   <div
-    class="h-6 w-6 rounded-full border border-zinc-600 group-hover:bg-zinc-700"
+    class="h-6 w-6 rounded-full border border-zinc-600 group-hover:bg-zinc-900"
   />
-  <label
-    for="list-radio-license-${reminder.id}"
-    class="ml-2 w-full py-3 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+  <div
+    class="ml-2 w-full cursor-pointer py-3 text-sm font-medium text-zinc-900 dark:text-zinc-300"
   >
     <p class="text-lg">
       {reminder.note}
@@ -38,5 +31,5 @@
     <div class="text-zinc-500">
       {formatDate(reminder.deadline)}
     </div>
-  </label>
+  </div>
 </div>

@@ -35,6 +35,8 @@ export const actions = {
     if (error) {
       return fail(500, {});
     }
+
+    throw redirect(303, "/reminders");
   },
   delete: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();
