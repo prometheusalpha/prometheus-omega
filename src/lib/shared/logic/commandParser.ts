@@ -8,8 +8,10 @@ export interface Command {
 }
 
 export const process = (prompt: string): Command => {
-  prompt = prompt.trim().toLowerCase();
-  const [action, type, value] = prompt.split(" - ");
+  prompt = prompt.trim();
+  let [action, type, value] = prompt.split(" - ");
+  action = action.trim().toLowerCase();
+  type = type.trim().toLowerCase();
   if (
     Object.values(Action).includes(action as Action) &&
     Object.values(Type).includes(type as Type)
