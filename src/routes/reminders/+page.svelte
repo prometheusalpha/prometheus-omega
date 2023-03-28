@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Reminder from "$lib/shared/components/reminder/Reminder.svelte";
+  import Reminder from "./Reminder.svelte";
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
   export let data: PageData;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NoteCard from "$lib/shared/components/note/NoteCard.svelte";
+  import NoteCard from "./NoteCard.svelte";
   import type { ActionData, PageData } from "./$types";
   export let data: PageData;
   let input: HTMLInputElement;
@@ -68,7 +68,7 @@
   </div>
 
   {#if notes}
-    <div class="grid gap-5 md:grid-cols-[repeat(auto-fill,minmax(450px,1fr))]">
+    <div class="space-y-5">
       {#each notes as note}
         <NoteCard {note} {deleteNote} />
       {/each}

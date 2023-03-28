@@ -3,10 +3,11 @@
   export let deleteNote: any;
 </script>
 
-<div
+<a
+  href={`/notes/${note.id}`}
   class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 shadow dark:border-zinc-700 dark:bg-zinc-900"
 >
-  <p class="font-normal text-zinc-700 dark:text-zinc-200 break-words">
+  <p class="truncate font-normal text-zinc-700 dark:text-zinc-200 break-words">
     {note.content}
   </p>
   <div class="flex justify-end pt-4">
@@ -16,4 +17,4 @@
       >Delete
     </button>
   </div>
-</div>
+</a>

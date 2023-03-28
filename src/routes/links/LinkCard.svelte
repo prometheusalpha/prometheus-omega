@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { LinkCardData } from "../../../../routes/links/+page.server";
+  import type { LinkCardData } from "./+page.server";
 
   export let card: LinkCardData;
 
-  import noimage from "../../../shared/assets/noimage.jpg";
+  import noimage from "$shared/assets/noimage.jpg";
 
   // calc number of char to truncate arcording to screen size
   const truncate = () => {
