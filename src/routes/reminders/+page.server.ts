@@ -20,16 +20,22 @@ export const actions = {
   update: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();
     const reminder = formData.get("reminder") as string;
+    const dateString = formData.get("date") as string;
+    let deadline: Date;
+
+    if (dateString.trim() === "") {
+      deadline = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    } else {
+      deadline = new Date(dateString);
+    }
 
     if (!reminder) {
       return fail(400, {});
     }
 
-    const session = await getSession();
-
     const { error } = await supabase.from("reminds").upsert({
       note: reminder,
-      deadline: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+      deadline: deadline,
     });
 
     if (error) {
