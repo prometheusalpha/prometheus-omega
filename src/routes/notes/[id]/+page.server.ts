@@ -24,6 +24,7 @@ export const actions: Actions = {
     const { error } = await supabase.from("notes").upsert({
       id,
       content: note,
+      modified: new Date(),
     });
   },
 } satisfies Actions;

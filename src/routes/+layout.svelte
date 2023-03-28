@@ -32,7 +32,7 @@
   </div>
   <div class="z-10 md:h-screen grow overflow-y-auto">
     {#if isPageLoaded}
-      <div class="bg-zinc-900">
+      <div class="bg-zinc-900 md:h-screen">
         <slot />
       </div>
     {/if}

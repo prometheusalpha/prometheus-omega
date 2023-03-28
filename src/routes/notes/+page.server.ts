@@ -10,7 +10,7 @@ export interface NoteData {
 export const load = (async ({ locals: { supabase, getSession } }) => {
   return {
     stream: {
-      notes: Promise.resolve(supabase.from("notes").select("*")),
+      notes: Promise.resolve(supabase.from("notes").select("*").order("modified", { ascending: false })),
     },
   };
 }) satisfies PageServerLoad;
