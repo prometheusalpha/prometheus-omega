@@ -15,6 +15,7 @@ export const actions: Actions = {
   update: async ({ request, locals: { supabase, getSession }, params }) => {
     const formData = await request.formData();
     const note = formData.get("note") as string;
+    const title = formData.get("title") as string;
     const id = params.id;
 
     if (!note || !id) {
@@ -24,6 +25,7 @@ export const actions: Actions = {
     const { error } = await supabase.from("notes").upsert({
       id,
       content: note,
+      title,
       modified: new Date(),
     });
   },

@@ -1,7 +1,12 @@
 <script lang="ts">
   import type { LinkCardData } from "./+page.server";
 
+  import ContextMenu from "./ContextMenu.svelte";
+  import { AdjustmentsHorizontal } from "svelte-heros-v2";
+
   export let card: LinkCardData;
+  export let deleteLink: (id: string) => void;
+  let isContextMenuOpen = false;
 
   import noimage from "$shared/assets/noimage.jpg";
 
@@ -24,12 +29,12 @@
   });
 </script>
 
-<a
-  target="_blank"
-  href={card.link}
-  class="flex w-full flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 md:h-28 md:flex-row"
->
-  {#await card.data}
+{#await card.data}
+  <a
+    target="_blank"
+    href={card.link}
+    class="flex w-full flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 md:h-28 md:flex-row"
+  >
     <div class="flex flex-col justify-between p-4 pr-12">
       <div class="grow-0">
         <h5
@@ -37,7 +42,7 @@
         >
           {"Untitled"}
         </h5>
-        <p class="text-ellipsis text-sm py-1 text-zinc-400">
+        <p class="text-ellipsis py-1 text-sm text-zinc-400">
           {"No description"}
         </p>
       </div>
@@ -50,30 +55,49 @@
       src={noimage}
       alt=""
     />
-  {:then data}
-    <div class="flex flex-col justify-between p-4 pr-12">
-      <h5
-        class="text-md truncate break-all font-semibold tracking-tight text-zinc-900 dark:text-white"
-      >
-        {data.ogTitle?.length > truncateLength
-          ? data.ogTitle.substring(0, truncateLength) + "..."
-          : data.ogTitle || "Untitled"}
-      </h5>
-      <p class="text-ellipsis text-sm py-1 text-zinc-400">
-        {data.ogDescription?.length > truncateLength
-          ? data.ogDescription.substring(0, truncateLength) + "..."
-          : data.ogDescription || "No description"}
-      </p>
-      <div class="truncate text-sm text-zinc-300">
-        {card.link?.length > truncateLength
-          ? card.link.substring(0, truncateLength) + "..."
-          : card.link || "No description"}
+  </a>
+{:then data}
+  <div class="relative grow">
+    <a
+      target="_blank"
+      href={card.link}
+      class="flex w-full flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900 md:h-28 md:flex-row"
+    >
+      <div class="relative flex grow flex-col justify-between p-4 pr-12">
+        <h5
+          class="text-md truncate break-all font-semibold tracking-tight text-zinc-900 dark:text-white"
+        >
+          {data.ogTitle?.length > truncateLength
+            ? data.ogTitle.substring(0, truncateLength) + "..."
+            : data.ogTitle || "Untitled"}
+        </h5>
+        <p class="text-ellipsis py-1 text-sm text-zinc-400">
+          {data.ogDescription?.length > truncateLength
+            ? data.ogDescription.substring(0, truncateLength) + "..."
+            : data.ogDescription || "No description"}
+        </p>
+        <div class="truncate text-sm text-zinc-300">
+          {card.link?.length > truncateLength
+            ? card.link.substring(0, truncateLength) + "..."
+            : card.link || "No description"}
+        </div>
       </div>
-    </div>
-    <img
-      class="max-h-[8rem] max-md:rounded-b-lg md:rounded-r-lg object-cover md:w-[20vw]"
-      src={data.ogImage || noimage}
-      alt=""
-    />
-  {/await}
-</a>
+      <img
+        class="max-h-[8rem] object-cover max-md:rounded-b-lg md:w-[20vw] md:rounded-r-lg"
+        src={data.ogImage || noimage}
+        alt=""
+      />
+    </a>
+    <button
+      class="absolute right-2 top-2 rounded-lg p-2 hover:bg-zinc-800 md:hidden"
+      on:click={() => (isContextMenuOpen = !isContextMenuOpen)}
+    >
+      <AdjustmentsHorizontal class="h-5 w-5 dark:text-zinc-400" />
+    </button>
+    {#if isContextMenuOpen}
+      <div class="absolute right-2 top-12">
+        <ContextMenu deleteLink={() => deleteLink(card.id)} />
+      </div>
+    {/if}
+  </div>
+{/await}

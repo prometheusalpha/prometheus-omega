@@ -10,7 +10,12 @@ export interface NoteData {
 export const load = (async ({ locals: { supabase, getSession } }) => {
   return {
     stream: {
-      notes: Promise.resolve(supabase.from("notes").select("*").order("modified", { ascending: false })),
+      notes: Promise.resolve(
+        supabase
+          .from("notes")
+          .select("*")
+          .order("modified", { ascending: false })
+      ),
     },
   };
 }) satisfies PageServerLoad;
@@ -20,17 +25,21 @@ export const actions = {
     const formData = await request.formData();
     const note = formData.get("note") as string;
 
-    if (!note) {
-      return fail(400, {});
-    }
-
-    const { error } = await supabase.from("notes").upsert({
-      content: note,
-    });
+    const { data, error } = await supabase
+      .from("notes")
+      .upsert({
+        content: note,
+      })
+      .select("id");
 
     if (error) {
       return fail(500, {});
     }
+
+    return {
+      status: 200,
+      id: data[0].id,
+    };
   },
   delete: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData();
@@ -40,12 +49,7 @@ export const actions = {
     if (error) {
       return fail(500, {});
     }
-  },
-  signout: async ({ locals: { supabase, getSession } }) => {
-    const session = await getSession();
-    if (session) {
-      await supabase.auth.signOut();
-      throw redirect(303, "/");
-    }
+
+    throw redirect(303, "/notes");
   },
 } satisfies Actions;

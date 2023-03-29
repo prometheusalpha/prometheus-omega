@@ -5,6 +5,17 @@
   export let form: ActionData;
 
   let { session, cards } = data;
+
+  let deleteLink = async (id: string) => {
+    cards = cards.filter((card: any) => card.id !== id);
+    let form = new FormData();
+    form.append("id", id);
+    await fetch(`?/delete`, {
+      method: "POST",
+      headers: {},
+      body: form,
+    });
+  };
 </script>
 
 <div class="p-5">
@@ -37,7 +48,13 @@
   <!-- loop the links -->
   <div class="space-y-5">
     {#each cards as card}
-      <LinkCard {card} />
+      <div class="items-center gap-4 md:flex">
+        <LinkCard {card} {deleteLink}/>
+        <button
+          class="text-zinc-500 max-md:hidden"
+          on:click={() => deleteLink(card.id)}>Delete</button
+        >
+      </div>
     {/each}
   </div>
 </div>

@@ -1,6 +1,9 @@
 <script lang="ts">
   import NoteCard from "./NoteCard.svelte";
   import type { ActionData, PageData } from "./$types";
+  import { goto } from "$app/navigation";
+  import { Plus } from "svelte-heros-v2";
+
   export let data: PageData;
   let input: HTMLInputElement;
 
@@ -11,7 +14,7 @@
     notes = notes.filter((note: any) => note.id !== id);
     let form = new FormData();
     form.append("id", id);
-    await fetch(`?/delete`, {
+    fetch(`?/delete`, {
       method: "POST",
       headers: {},
       body: form,
@@ -23,49 +26,30 @@
   });
 
   // send the form data to the server by fetching the API
-  let submitForm = async (content: string) => {
+  let addNote = async () => {
     let form = new FormData();
-    form.append("note", content);
+    form.append("note", "");
     let res = await fetch(`?/update`, {
       method: "POST",
       headers: {},
       body: form,
     });
-    location.reload();
-  };
-
-  let onEnter = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
-      submitForm(input.value);
-    }
+    let data = await res.json();
+    let json = JSON.parse(data.data);
+    let id = json[2];
+    goto(`/notes/${id}`);
   };
 </script>
 
 <div class="p-5">
   <h1 class="py-5 text-4xl font-bold">Notes</h1>
 
-  <!-- input new notes -->
-  <div class="py-5">
-    <div class="flex gap-5">
-      <input
-        type="text"
-        id="note"
-        autocomplete="off"
-        on:keydown={onEnter}
-        bind:this={input}
-        name="note"
-        class="block w-full rounded-lg border border-zinc-300 bg-zinc-50 p-2.5 text-sm text-zinc-900 focus:border-green-500 focus:outline-none focus:ring-green-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-        placeholder="What are you thinking about?"
-        required
-      />
-      <button
-        type="submit"
-        on:click={() => submitForm(input.value)}
-        class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >Add</button
-      >
-    </div>
-  </div>
+  <button
+    class="fixed bottom-24 right-8 rounded-xl bg-green-800 p-4 md:bottom-4"
+    on:click={addNote}
+  >
+    <Plus class="h-8 w-8 text-green-400" />
+  </button>
 
   {#if notes}
     <div class="space-y-5">

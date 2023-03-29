@@ -10,6 +10,7 @@
     {
       "src": "icon.svg",
       "type": "image/svg+xml",
+      "purpose": "any",
       "sizes": "any"
     }
   ]

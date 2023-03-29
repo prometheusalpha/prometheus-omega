@@ -3,6 +3,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import { getOpenGraph } from "$shared/logic/openGraph";
 
 export interface LinkCardData {
+  id: string;
   link: string;
   created_at: Date;
   data: Promise<{
@@ -32,6 +33,7 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
       console.error(error);
     }
     const card = {
+      id: links.id as string,
       link: links.link as string,
       created_at: links.created_at as Date,
       data:
@@ -67,6 +69,20 @@ export const actions = {
     }
 
     return {};
+  },
+  delete: async ({ request, locals: { supabase, getSession } }) => {
+    const formData = await request.formData();
+    const id = formData.get("id") as string;
+
+    if (!id) {
+      return fail(400, {});
+    }
+
+    const { error } = await supabase.from("links").delete().eq("id", id);
+
+    if (error) {
+      return fail(500, {});
+    }
   },
   signout: async ({ locals: { supabase, getSession } }) => {
     const session = await getSession();

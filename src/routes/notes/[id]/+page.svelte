@@ -7,6 +7,8 @@
   let saved: string;
   let isPreview: boolean = false;
 
+  let titleInput: HTMLInputElement;
+
   $: data.stream.note.then((note) => {
     saved = note.data.content;
   });
@@ -19,31 +21,21 @@
   const saveNote = async () => {
     let form: FormData = new FormData();
     form.append("note", saved);
+    form.append("title", titleInput.value);
     const res = await fetch(`?/update`, {
       method: "POST",
       headers: {},
       body: form,
     });
   };
+
+  import { ChevronLeft } from "svelte-heros-v2";
 </script>
 
 <div class="h-full">
   <div class="sticky top-0 flex items-center gap-4 bg-zinc-900 p-4">
     <a href="." class="inline-block px-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="h-6 w-6 dark:text-zinc-400"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 19.5L8.25 12l7.5-7.5"
-        />
-      </svg>
+      <ChevronLeft class="h-6 w-6 dark:text-zinc-400" />
     </a>
     <button
       on:click={saveNote}
@@ -58,6 +50,13 @@
     </label>
   </div>
   {#await data.stream.note then note}
+    <input
+      type="text"
+      name="title"
+      bind:this={titleInput}
+      class="mx-3 mt-3 w-[50vw] bg-transparent p-2 text-2xl font-bold focus:outline-none"
+      value={note.data.title}
+    />
     <div
       class="mx-3 mt-3 grid min-h-[60vh] rounded-xl border-zinc-700 md:grid-cols-2 md:border-2"
     >

@@ -7,7 +7,10 @@
   href={`/notes/${note.id}`}
   class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 shadow dark:border-zinc-700 dark:bg-zinc-900"
 >
-  <p class="truncate font-normal text-zinc-700 dark:text-zinc-200 break-words">
+  <p class="truncate break-words text-lg font-semibold text-zinc-700 dark:text-zinc-100">
+    {note.title}
+  </p>
+  <p class="truncate break-words font-normal text-zinc-700 dark:text-zinc-400">
     {note.content}
   </p>
   <div class="flex justify-end pt-4">

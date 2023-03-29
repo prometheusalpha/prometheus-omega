@@ -1,25 +1,23 @@
 <script lang="ts">
-  import { afterUpdate, beforeUpdate, onMount } from "svelte";
   import type { ActionData, PageData } from "./$types";
 
   export let data: PageData;
   export let form: ActionData;
-  const dummy = document.querySelector(".dummy") as HTMLDivElement;
 
   const scrollToBottom = () => {
-    console.log("scrolling");
-    dummy?.scrollIntoView({ behavior: "smooth" });
+    const dummy = document.querySelector("#dummy") as HTMLDivElement;
+    if (dummy) dummy.scrollIntoView();
+    else console.error("No dummy element found");
   };
 
-  onMount(() => {
-    scrollToBottom();
-  });
-
-  $: data.stream.messages.then(() => {
-    setTimeout(() => {
+  let messages: any[];
+  $: data.stream.messages
+    .then((data) => {
+      messages = data.data;
+    })
+    .then(() => {
       scrollToBottom();
-    }, 2000);
-  });
+    });
 </script>
 
 <div class="flex h-screen flex-col max-md:h-[calc(100vh-5rem)]">
@@ -28,8 +26,8 @@
   </div>
   <div class="min-h-0 grow overflow-y-scroll">
     <div class="">
-      {#await data.stream.messages then messages}
-        {#each messages.data as message}
+      {#if messages}
+        {#each messages as message}
           {#if message.from_user}
             <div class="flex justify-end p-2 pl-12">
               <div class="inline-block rounded-lg bg-green-800 p-3">
@@ -44,8 +42,12 @@
             </div>
           {/if}
         {/each}
-      {/await}
-      <div class="dummy" />
+      {:else}
+        <div class="">
+          <p class="text-gray-900 dark:text-white">No messages yet</p>
+        </div>
+      {/if}
+      <div id="dummy" />
     </div>
   </div>
   <div class="border-t border-zinc-700 p-3">

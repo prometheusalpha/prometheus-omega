@@ -11,7 +11,10 @@ export interface RemindData {
 export const load = (async ({ locals: { supabase, getSession } }) => {
   const session = await getSession();
 
-  let { data: reminders, error } = await supabase.from("reminds").select("*");
+  let { data: reminders, error } = await supabase
+    .from("reminds")
+    .select("*")
+    .order("deadline", { ascending: true });
 
   return { session, reminders };
 }) satisfies PageServerLoad;
