@@ -52,7 +52,7 @@
   </button>
 
   {#if notes}
-    <div class="space-y-5">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-5">
       {#each notes as note}
         <NoteCard {note} {deleteNote} />
       {/each}

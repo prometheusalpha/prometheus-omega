@@ -54,7 +54,7 @@
       type="text"
       name="title"
       bind:this={titleInput}
-      class="mx-3 mt-3 w-[50vw] bg-transparent p-2 text-2xl font-bold focus:outline-none"
+      class="mx-3 mt-3 w-[90vw] bg-transparent p-2 text-4xl font-bold focus:outline-none"
       value={note.data.title}
     />
     <div
