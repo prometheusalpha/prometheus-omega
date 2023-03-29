@@ -45,8 +45,8 @@
     </form>
   </div>
 
-  <!-- loop the links --> 
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-5">
+  <!-- loop the links -->
+  <div class="grid md:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-5">
     {#each cards as card}
       <div class="items-center gap-4 md:flex">
         <LinkCard {card} {deleteLink}/>
