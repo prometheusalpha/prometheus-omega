@@ -16,40 +16,61 @@
       body: form,
     });
   };
+
+  let addOnEnter = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      addLink(e);
+    }
+  };
+
+  let addLink = async (e: Event) => {
+    e.preventDefault();
+    let form = new FormData();
+    form.append("link", (e.target as HTMLInputElement).value);
+    let res = await fetch(`?/update`, {
+      method: "POST",
+      headers: {},
+      body: form,
+    });
+    let data = await res.json();
+    cards = [...cards, data];
+    (e.target as HTMLInputElement).value = "";
+  };
 </script>
 
 <div class="p-5">
-  <h1 class="py-5 text-4xl font-bold">Links</h1>
+  <h1 class="py-10 text-6xl">your links</h1>
 
   <!-- input new link -->
   <div class="py-5">
-    <label
-      for="first_name"
-      class="mb-2 block text-sm font-medium text-zinc-900 dark:text-white"
-      >New link</label
+    <form
+      action="?/update"
+      method="post"
+      bind:this={form}
+      class="flex max-lg:flex-wrap items-center"
     >
-    <form action="?/update" method="post" bind:this={form} class="flex gap-5">
+      <label
+        for="first_name"
+        class="text-4xl text-zinc-900 dark:text-white"
+        >i will remember
+      </label>
       <input
         type="text"
         id="link"
         name="link"
-        class="block w-full rounded-lg border border-zinc-300 bg-zinc-50 p-2.5 text-sm text-zinc-900 focus:border-green-500 focus:outline-none focus:ring-green-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:border-green-500 dark:focus:ring-green-500"
+        on:keydown={addOnEnter}
+        class="min-w-0 block grow rounded-lg bg-transparent max-lg:py-2 lg:p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-white dark:placeholder-zinc-600"
         placeholder="https://example.com"
         required
       />
-      <button
-        type="submit"
-        class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >Add</button
-      >
     </form>
   </div>
 
   <!-- loop the links -->
-  <div class="grid md:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-5">
+  <div class="grid gap-5 md:grid-cols-[repeat(auto-fill,minmax(400px,1fr))]">
     {#each cards as card}
       <div class="items-center gap-4 md:flex">
-        <LinkCard {card} {deleteLink}/>
+        <LinkCard {card} {deleteLink} />
       </div>
     {/each}
   </div>

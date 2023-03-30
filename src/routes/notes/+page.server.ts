@@ -10,10 +10,11 @@ export interface NoteData {
 export const load = (async ({ locals: { supabase, getSession } }) => {
   return {
     stream: {
+      tags: Promise.resolve(supabase.from("tags").select("*")),
       notes: Promise.resolve(
         supabase
           .from("notes")
-          .select("*")
+          .select("id, modified, content, title, tags (name)")
           .order("modified", { ascending: false })
       ),
     },

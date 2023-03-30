@@ -20,7 +20,7 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
   //   throw redirect(303, "/");
   // }
 
-  let { data: links, error } = await supabase.from("links").select("*");
+  let { data: links, error } = await supabase.from("links").select("*").order("created_at", { ascending: false });
 
   let cards: LinkCardData[] = [];
 

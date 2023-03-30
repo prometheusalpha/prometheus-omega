@@ -1,13 +1,13 @@
 <script lang="ts">
-  import NoteCard from "./NoteCard.svelte";
-  import type { ActionData, PageData } from "./$types";
   import { goto } from "$app/navigation";
   import { Plus } from "svelte-heros-v2";
+  import type { PageData } from "./$types";
+  import NoteCard from "./NoteCard.svelte";
 
   export let data: PageData;
-  let input: HTMLInputElement;
 
   let notes: any[];
+  let currentTag: string[] = [];
 
   // function to delete a note
   let deleteNote = async (id: string) => {
@@ -39,10 +39,57 @@
     let id = json[2];
     goto(`/notes/${id}`);
   };
+
+  let toggleTag = (tag: string) => {
+    if (currentTag.includes(tag)) {
+      currentTag = currentTag.filter((t) => t !== tag);
+    } else {
+      currentTag = [...currentTag, tag];
+    }
+  };
+
+  $: if (currentTag != null) {
+    notes = notes;
+  }
+
+  let checkHasTag = (note: any) => {
+    if (currentTag.length === 0) return true;
+    let tagNames = note.tags.map((tag: any) => tag.name);
+    return currentTag.every((tag: string) => tagNames.includes(tag));
+  };
 </script>
 
 <div class="p-5">
-  <h1 class="py-5 text-4xl font-bold">Notes</h1>
+  <h1 class="py-10 text-6xl">
+    <span>your notes</span>
+  </h1>
+
+  {#await data.stream.tags}
+    <div class="p-5 text-center">
+      <p class="text-zinc-500 dark:text-zinc-400">Loading...</p>
+    </div>
+  {:then tags}
+    <div
+      class="scrollbar-hide mb-5 flex items-center gap-2 overflow-x-auto py-2"
+    >
+      {#each tags.data as tag}
+        <div class="">
+          <input
+            type="checkbox"
+            class="peer hidden"
+            id="tag-{tag.name}"
+            on:change={() => toggleTag(tag.name)}
+          />
+          <label
+            for="tag-{tag.name}"
+            class="text-md inline cursor-pointer rounded-full border border-zinc-600 px-3 py-2 font-medium text-zinc-700 hover:bg-zinc-700 peer-checked:bg-zinc-700 dark:text-zinc-100"
+          >
+            #{tag.name}
+          </label>
+        </div>
+      {/each}
+    </div>
+  {/await}
 
   <button
     class="fixed bottom-24 right-8 rounded-xl bg-green-800 p-4 md:bottom-4"
@@ -52,9 +99,13 @@
   </button>
 
   {#if notes}
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-5">
+    <div
+      class="grid grid-cols-1 gap-5 md:grid-cols-[repeat(auto-fill,minmax(350px,1fr))]"
+    >
       {#each notes as note}
-        <NoteCard {note} {deleteNote} />
+        {#if checkHasTag(note)}
+          <NoteCard {note} {deleteNote} />
+        {/if}
       {/each}
     </div>
   {:else}

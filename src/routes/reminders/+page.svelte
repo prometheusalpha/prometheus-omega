@@ -52,30 +52,34 @@
 </script>
 
 <div class="p-5">
-  <h1 class="py-5 text-4xl font-bold">Reminders</h1>
+  <h1 class="py-10 text-6xl">remember to</h1>
 
-  <div class="grid gap-5 py-5 md:grid-cols-[3fr_1fr_1fr_100px]">
+  <div
+    class="grid items-center gap-4 py-5 lg:grid-cols-[5fr_2rem_2fr_2rem_2fr_100px]"
+  >
     <input
       type="text"
       id="reminder"
       autocomplete="off"
       bind:this={input}
       name="reminder"
-      class="block min-w-0 grow rounded-lg border border-zinc-300 bg-zinc-50 p-2.5 text-sm text-zinc-900 focus:border-green-500 focus:outline-none focus:ring-green-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-      placeholder="What do you have to do?"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 placeholder-zinc-600 focus:outline-none dark:text-white"
+      placeholder="do this"
       required
     />
+    <div class="text-4xl">on</div>
     <!-- Calendar -->
     <input
       bind:this={dateInput}
       type="date"
-      class="block min-w-0 rounded-lg border border-zinc-300 bg-zinc-50 p-2.5 text-sm text-zinc-900 focus:border-green-500 focus:outline-none focus:ring-green-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:border-green-500 dark:focus:ring-green-500"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-zinc-600"
     />
+    <div class="text-4xl">at</div>
     <!-- Time -->
     <input
       bind:this={timeInput}
       type="time"
-      class="block rounded-lg border border-zinc-300 bg-zinc-50 p-2.5 text-sm text-zinc-900 focus:border-green-500 focus:outline-none focus:ring-green-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:border-green-500 dark:focus:ring-green-500"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-zinc-600"
     />
     <button
       type="submit"

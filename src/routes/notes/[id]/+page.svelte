@@ -1,6 +1,8 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+    import { formatDate } from "$lib/shared/util/util";
+  import { ArrowLeft, Check } from "svelte-heros-v2";
   import SvelteMarkdown from "svelte-markdown";
+  import type { PageData } from "./$types";
 
   export let data: PageData;
 
@@ -13,8 +15,12 @@
     saved = note.data.content;
   });
 
+  let timeout: NodeJS.Timeout;
+
   const updateMarkdown = (e: Event) => {
     saved = e.target ? (e.target as HTMLTextAreaElement).value : "";
+    clearTimeout(timeout);
+    timeout = setTimeout(saveNote, 1000);
   };
 
   // update the note by fetching api
@@ -27,39 +33,52 @@
       headers: {},
       body: form,
     });
+    // toggle the notification
+    document.getElementById("notification")?.classList.toggle("invisible");
+    setTimeout(() => {
+      document.getElementById("notification")?.classList.toggle("invisible");
+    }, 1000);
   };
 
-  import { ChevronLeft } from "svelte-heros-v2";
+  const addTag = (tagId: string) => {
+    let form: FormData = new FormData();
+    form.append("tagId", tagId);
+    fetch(`?/addtag`, {
+      method: "POST",
+      headers: {},
+      body: form,
+    });
+  };
 </script>
 
-<div class="h-full">
-  <div class="sticky top-0 flex items-center gap-4 bg-zinc-900 p-4">
+<div class="h-full p-3">
+  <div class="sticky top-0 flex items-center gap-4 bg-zinc-900 py-4">
     <a href="." class="inline-block px-2">
-      <ChevronLeft class="h-6 w-6 dark:text-zinc-400" />
+      <ArrowLeft class="h-6 w-6 dark:text-zinc-400" />
     </a>
-    <button
-      on:click={saveNote}
-      type="button"
-      class="rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-      >Save</button
-    >
     <label
       for="preview-toggle"
-      class="cursor-pointer select-none rounded-lg bg-gray-700 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 md:hidden"
+      class="cursor-pointer select-none rounded-lg bg-gray-700 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
       >{isPreview ? "Edit" : "Preview"}
     </label>
+    <div
+      class="invisible flex items-center gap-2 text-zinc-500"
+      id="notification"
+    >
+      <Check class="h-6 w-6" />
+      Saved
+    </div>
   </div>
   {#await data.stream.note then note}
+    <div class="py-6 text-zinc-400">{formatDate(note.data.modified)}</div>
     <input
       type="text"
       name="title"
       bind:this={titleInput}
-      class="mx-3 mt-3 w-[90vw] bg-transparent p-2 text-4xl font-bold focus:outline-none"
+      class="w-[80vw] bg-transparent py-3 text-4xl focus:outline-none"
       value={note.data.title}
     />
-    <div
-      class="mx-3 mt-3 grid min-h-[60vh] rounded-xl border-zinc-700 md:grid-cols-2 md:border-2"
-    >
+    <div class="grid min-h-[60vh] rounded-xl border-zinc-700">
       <input
         type="checkbox"
         name="preview-toggle"
@@ -68,15 +87,40 @@
         on:change={() => (isPreview = !isPreview)}
       />
       <textarea
-        class="bg-transparent p-2 focus:outline-none max-md:peer-checked:hidden md:border-r-2 md:border-zinc-700"
+        class="bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:hidden md:border-zinc-700"
         value={note.data.content}
         on:input={updateMarkdown}
       />
-      <div
-        class="prose prose-invert max-w-none p-2 max-md:hidden max-md:peer-checked:block"
-      >
+      <div class="prose prose-invert hidden max-w-none py-3 peer-checked:block">
         <SvelteMarkdown source={saved} />
       </div>
+    </div>
+    <div class="p-3">
+      <div class="flex items-center gap-2">
+        {#each note.data.tags as tag}
+          <span
+            class="inline rounded-full border border-zinc-600 px-2.5 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-700 dark:text-zinc-100"
+          >
+            #{tag.name}
+          </span>
+        {/each}
+      </div>
+    </div>
+  {/await}
+
+  {#await data.stream.tags}
+    <div class="p-3 text-gray-700">Loading tags...</div>
+  {:then tags}
+    <div class="p-5">Add tags</div>
+    <div class="mx-3 mt-3 flex items-center gap-2">
+      {#each tags.data as tag}
+        <button
+          on:click={() => addTag(tag.id)}
+          class="inline rounded-full border border-zinc-600 px-2.5 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-700 dark:text-zinc-100"
+        >
+          #{tag.name}
+        </button>
+      {/each}
     </div>
   {/await}
 </div>

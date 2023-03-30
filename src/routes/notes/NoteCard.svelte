@@ -7,12 +7,23 @@
   href={`/notes/${note.id}`}
   class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white p-6 shadow dark:border-zinc-700 dark:bg-zinc-900"
 >
-  <p class="truncate break-words text-lg font-semibold text-zinc-700 dark:text-zinc-100">
+  <p
+    class="truncate break-words text-lg font-semibold text-zinc-700 dark:text-zinc-100"
+  >
     {note.title}
   </p>
   <p class="truncate break-words font-normal text-zinc-700 dark:text-zinc-400">
     {note.content}
   </p>
+  <div class="flex items-center gap-2">
+    {#each note.tags as tag}
+      <span
+        class="inline rounded-full border border-zinc-600 hover:bg-zinc-700 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:text-zinc-100"
+      >
+        #{tag.name}
+      </span>
+    {/each}
+  </div>
   <div class="flex justify-end pt-4">
     <button
       on:click={() => deleteNote(note.id)}

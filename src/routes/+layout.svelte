@@ -23,14 +23,13 @@
   });
 </script>
 
-<div class="relative flex h-screen bg-zinc-900 text-white max-md:flex-col">
+<div class="relative flex h-screen bg-zinc-900 text-white max-md:flex-col dark">
   <div
     class="z-[12] h-screen border-r border-zinc-700 bg-zinc-900 px-4 py-3 max-md:hidden max-md:w-[50vw]"
   >
-    <!-- <h1 class="py-4 text-2xl font-bold">Prometheus Omega</h1> -->
     <Menu />
   </div>
-  <div class="z-10 md:h-screen grow overflow-y-auto">
+  <div class="z-10 md:h-screen grow overflow-y-auto pb-3">
     {#if isPageLoaded}
       <div class="bg-zinc-900 md:h-screen">
         <slot />
