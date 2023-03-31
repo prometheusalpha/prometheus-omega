@@ -100,7 +100,7 @@
 
   {#if notes}
     <div
-      class="grid grid-cols-1 gap-5 md:grid-cols-[repeat(auto-fill,minmax(350px,1fr))]"
+      class="grid grid-cols-1 gap-5 md:grid-cols-[repeat(auto-fill,minmax(350px,1fr))] max-md:divide-y-2"
     >
       {#each notes as note}
         {#if checkHasTag(note)}

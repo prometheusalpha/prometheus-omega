@@ -6,7 +6,7 @@
 
   export let data: PageData;
 
-  let isPreview: boolean = false;
+  let isPreview: boolean = true;
 
   let titleInput: HTMLInputElement;
   let noteInput: HTMLTextAreaElement;
@@ -48,7 +48,7 @@
 
 <div class="h-full p-3">
   <div
-    class="sticky top-0 flex items-center justify-between gap-4 bg-zinc-900 py-4"
+    class="sticky top-0 flex items-center justify-between gap-4 bg-zinc-900 py-4 max-md:border-b border-zinc-500"
   >
     <a href="." class="inline-block px-2">
       <ArrowLeft class="h-6 w-6 dark:text-zinc-400" />
@@ -62,18 +62,29 @@
     </div>
     <label
       for="preview-toggle"
-      class="cursor-pointer select-none rounded-lg bg-gray-700 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+      class="cursor-pointer select-none rounded-lg px-5 py-3 text-sm font-medium text-white focus:outline-none"
       >{isPreview ? "Edit" : "Preview"}
     </label>
   </div>
   {#await data.stream.note then note}
-    <div class="py-6 text-zinc-400">{formatDate(note.data.modified)}</div>
-    <input
+    <div class="sm:flex justify-between">
+      <div class="py-6 text-zinc-400">{formatDate(note.data.modified)}</div>
+      <div class="flex items-center gap-2">
+        {#each note.data.tags as tag}
+          <span
+            class="inline pr-2.5 py-1 text-md font-medium text-zinc-700 dark:text-zinc-100"
+          >
+            #{tag.name}
+          </span>
+        {/each}
+      </div>
+    </div>
+      <input
       type="text"
       name="title"
       bind:this={titleInput}
       on:input={saveNote}
-      class="w-[80vw] bg-transparent py-3 text-4xl focus:outline-none"
+      class="w-[80vw] bg-transparent py-6 text-4xl focus:outline-none"
       value={note.data.title}
     />
     <div class="grid min-h-[60vh] rounded-xl border-zinc-700">
@@ -85,24 +96,13 @@
         on:change={() => (isPreview = !isPreview)}
       />
       <textarea
-        class="bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:hidden md:border-zinc-700"
+        class="bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:block hidden md:border-zinc-700"
         value={note.data.content}
         bind:this={noteInput}
         on:input={updateMarkdown}
       />
-      <div class="prose prose-invert hidden max-w-none py-3 peer-checked:block">
+      <div class="prose prose-invert max-w-none py-3 peer-checked:hidden">
         <SvelteMarkdown source={noteInput?.value || ""} />
-      </div>
-    </div>
-    <div class="p-3">
-      <div class="flex items-center gap-2">
-        {#each note.data.tags as tag}
-          <span
-            class="inline rounded-full border border-zinc-600 px-2.5 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-700 dark:text-zinc-100"
-          >
-            #{tag.name}
-          </span>
-        {/each}
       </div>
     </div>
   {/await}
