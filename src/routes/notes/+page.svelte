@@ -82,7 +82,7 @@
           />
           <label
             for="tag-{tag.name}"
-            class="text-md inline cursor-pointer rounded-full border border-zinc-600 px-3 py-2 font-medium text-zinc-700 hover:bg-zinc-700 peer-checked:bg-zinc-700 dark:text-zinc-100"
+            class="text-md inline cursor-pointer rounded-full border border-zinc-400 px-3 py-2 font-medium text-zinc-700 hover:bg-zinc-700 peer-checked:bg-green-600 peer-checked:text-zinc-900 dark:text-zinc-100 peer-checked:border-green-600"
           >
             #{tag.name}
           </label>

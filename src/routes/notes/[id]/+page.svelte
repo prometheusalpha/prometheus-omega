@@ -1,24 +1,19 @@
 <script lang="ts">
-    import { formatDate } from "$lib/shared/util/util";
+  import { formatDate } from "$lib/shared/util/util";
   import { ArrowLeft, Check } from "svelte-heros-v2";
   import SvelteMarkdown from "svelte-markdown";
   import type { PageData } from "./$types";
 
   export let data: PageData;
 
-  let saved: string;
   let isPreview: boolean = false;
 
   let titleInput: HTMLInputElement;
-
-  $: data.stream.note.then((note) => {
-    saved = note.data.content;
-  });
+  let noteInput: HTMLTextAreaElement;
 
   let timeout: NodeJS.Timeout;
 
   const updateMarkdown = (e: Event) => {
-    saved = e.target ? (e.target as HTMLTextAreaElement).value : "";
     clearTimeout(timeout);
     timeout = setTimeout(saveNote, 1000);
   };
@@ -26,7 +21,7 @@
   // update the note by fetching api
   const saveNote = async () => {
     let form: FormData = new FormData();
-    form.append("note", saved);
+    form.append("note", noteInput.value);
     form.append("title", titleInput.value);
     const res = await fetch(`?/update`, {
       method: "POST",
@@ -52,15 +47,12 @@
 </script>
 
 <div class="h-full p-3">
-  <div class="sticky top-0 flex items-center gap-4 bg-zinc-900 py-4">
+  <div
+    class="sticky top-0 flex items-center justify-between gap-4 bg-zinc-900 py-4"
+  >
     <a href="." class="inline-block px-2">
       <ArrowLeft class="h-6 w-6 dark:text-zinc-400" />
     </a>
-    <label
-      for="preview-toggle"
-      class="cursor-pointer select-none rounded-lg bg-gray-700 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-      >{isPreview ? "Edit" : "Preview"}
-    </label>
     <div
       class="invisible flex items-center gap-2 text-zinc-500"
       id="notification"
@@ -68,6 +60,11 @@
       <Check class="h-6 w-6" />
       Saved
     </div>
+    <label
+      for="preview-toggle"
+      class="cursor-pointer select-none rounded-lg bg-gray-700 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+      >{isPreview ? "Edit" : "Preview"}
+    </label>
   </div>
   {#await data.stream.note then note}
     <div class="py-6 text-zinc-400">{formatDate(note.data.modified)}</div>
@@ -75,6 +72,7 @@
       type="text"
       name="title"
       bind:this={titleInput}
+      on:input={saveNote}
       class="w-[80vw] bg-transparent py-3 text-4xl focus:outline-none"
       value={note.data.title}
     />
@@ -89,10 +87,11 @@
       <textarea
         class="bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:hidden md:border-zinc-700"
         value={note.data.content}
+        bind:this={noteInput}
         on:input={updateMarkdown}
       />
       <div class="prose prose-invert hidden max-w-none py-3 peer-checked:block">
-        <SvelteMarkdown source={saved} />
+        <SvelteMarkdown source={noteInput?.value || ""} />
       </div>
     </div>
     <div class="p-3">
