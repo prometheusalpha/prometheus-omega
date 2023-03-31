@@ -29,7 +29,7 @@
   >
     <Menu />
   </div>
-  <div class="z-10 md:h-screen grow overflow-y-auto pb-3">
+  <div class="z-10 md:h-screen grow overflow-y-auto">
     {#if isPageLoaded}
       <div class="bg-zinc-900 md:h-screen">
         <slot />
