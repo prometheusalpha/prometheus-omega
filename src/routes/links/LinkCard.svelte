@@ -34,11 +34,11 @@
     <a
       target="_blank"
       href={card.link}
-      class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900"
+      class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-950"
     >
       <div class="relative flex grow flex-col justify-between p-4 pr-12">
         <h5
-          class="text-md truncate break-all font-semibold tracking-tight text-zinc-900 dark:text-white"
+          class="text-md truncate break-all font-semibold tracking-tight text-zinc-950 dark:text-white"
         >
           {"Untitled"}
         </h5>
@@ -55,11 +55,11 @@
     <a
       target="_blank"
       href={card.link}
-      class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-900"
+      class="flex flex-col justify-between rounded-lg border border-zinc-200 bg-white shadow-md dark:border-zinc-700 dark:bg-zinc-950"
     >
       <div class="relative flex grow flex-col justify-between p-4 pr-12">
         <h5
-          class="text-md truncate break-all font-semibold tracking-tight text-zinc-900 dark:text-white"
+          class="text-md truncate break-all font-semibold tracking-tight text-zinc-950 dark:text-white"
         >
           {data.ogTitle?.length > truncateLength
             ? data.ogTitle.substring(0, truncateLength) + "..."

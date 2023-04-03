@@ -20,10 +20,10 @@
   on:keydown={() => markAsDone(reminder.id)}
 >
   <div
-    class="h-6 w-6 rounded-full border border-zinc-600 group-hover:bg-zinc-900"
+    class="h-6 w-6 rounded-full border border-zinc-600 group-hover:bg-zinc-950"
   />
   <div
-    class="ml-2 w-full cursor-pointer py-3 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+    class="ml-2 w-full cursor-pointer py-3 text-sm font-medium text-zinc-950 dark:text-zinc-300"
   >
     <p class="text-lg">
       {reminder.note}

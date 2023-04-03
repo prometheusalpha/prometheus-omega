@@ -23,15 +23,15 @@
   });
 </script>
 
-<div class="relative flex h-screen bg-zinc-900 text-white max-md:flex-col dark">
+<div class="dark relative flex h-screen bg-zinc-950 text-white max-md:flex-col">
   <div
-    class="z-[12] h-screen border-r border-zinc-700 bg-zinc-900 px-4 py-3 max-md:hidden max-md:w-[50vw]"
+    class="z-[12] h-screen border-r border-zinc-700 bg-zinc-950 px-4 py-3 max-md:hidden max-md:w-[50vw]"
   >
     <Menu />
   </div>
-  <div class="z-10 md:h-screen grow overflow-y-auto">
+  <div class="z-10 grow overflow-y-auto md:h-screen">
     {#if isPageLoaded}
-      <div class="bg-zinc-900 md:h-screen">
+      <div class="bg-zinc-950 md:h-screen">
         <slot />
       </div>
     {/if}

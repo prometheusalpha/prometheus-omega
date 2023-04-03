@@ -51,7 +51,7 @@
   <li>
     <a
       href="/chat"
-      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-900 dark:text-white"
+      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-950 dark:text-white"
     >
       <CommandLine
         variation={solidMap.chat ? "solid" : "outline"}
@@ -62,7 +62,7 @@
   <li>
     <a
       href="/links"
-      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-900 dark:text-white"
+      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-950 dark:text-white"
     >
       <GlobeAlt
         variation={solidMap.links ? "solid" : "outline"}
@@ -73,7 +73,7 @@
   <li>
     <a
       href="/notes"
-      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-900 dark:text-white"
+      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-950 dark:text-white"
     >
       <ClipboardDocumentCheck
         variation={solidMap.notes ? "solid" : "outline"}
@@ -84,7 +84,7 @@
   <li>
     <a
       href="/reminders"
-      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-900 dark:text-white"
+      class="flex items-center rounded-lg p-2 text-base font-normal text-zinc-950 dark:text-white"
     >
       <RectangleStack
         variation={solidMap.reminders ? "solid" : "outline"}

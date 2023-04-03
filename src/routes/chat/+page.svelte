@@ -31,20 +31,20 @@
           {#if message.from_user}
             <div class="flex justify-end p-2 pl-12">
               <div class="inline-block rounded-lg bg-green-800 p-3">
-                <p class="text-gray-900 dark:text-white">{message.content}</p>
+                <p class="text-gray-950 dark:text-white">{message.content}</p>
               </div>
             </div>
           {:else}
             <div class="p-2 pr-12">
               <div class="inline-block rounded-lg bg-zinc-800 p-3">
-                <p class="text-gray-900 dark:text-white">{message.content}</p>
+                <p class="text-gray-950 dark:text-white">{message.content}</p>
               </div>
             </div>
           {/if}
         {/each}
       {:else}
         <div class="">
-          <p class="text-gray-900 dark:text-white">No messages yet</p>
+          <p class="text-gray-950 dark:text-white">No messages yet</p>
         </div>
       {/if}
       <div id="dummy" />
@@ -57,7 +57,7 @@
         id="message"
         name="message"
         autocomplete="off"
-        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-950 focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder="What do you want me to do ?"
         required
       />

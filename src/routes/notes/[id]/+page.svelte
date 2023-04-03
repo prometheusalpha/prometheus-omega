@@ -20,6 +20,8 @@
 
   // update the note by fetching api
   const saveNote = async () => {
+    // update data in the preview by reassigning the value
+    noteInput = noteInput;
     let form: FormData = new FormData();
     form.append("note", noteInput.value);
     form.append("title", titleInput.value);
@@ -48,7 +50,7 @@
 
 <div class="h-full p-3">
   <div
-    class="sticky top-0 flex items-center justify-between gap-4 bg-zinc-900 py-4 max-md:border-b border-zinc-500"
+    class="sticky top-0 flex items-center justify-between gap-4 border-zinc-500 bg-zinc-950 py-4 max-md:border-b"
   >
     <a href="." class="inline-block px-2">
       <ArrowLeft class="h-6 w-6 dark:text-zinc-400" />
@@ -67,19 +69,19 @@
     </label>
   </div>
   {#await data.stream.note then note}
-    <div class="sm:flex justify-between">
+    <div class="justify-between sm:flex">
       <div class="py-6 text-zinc-400">{formatDate(note.data.modified)}</div>
       <div class="flex items-center gap-2">
         {#each note.data.tags as tag}
           <span
-            class="inline pr-2.5 py-1 text-md font-medium text-zinc-700 dark:text-zinc-100"
+            class="text-md inline py-1 pr-2.5 font-medium text-zinc-700 dark:text-zinc-100"
           >
             #{tag.name}
           </span>
         {/each}
       </div>
     </div>
-      <input
+    <input
       type="text"
       name="title"
       bind:this={titleInput}
@@ -96,7 +98,7 @@
         on:change={() => (isPreview = !isPreview)}
       />
       <textarea
-        class="bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:block hidden md:border-zinc-700"
+        class="hidden bg-transparent py-3 text-zinc-200 focus:outline-none peer-checked:block md:border-zinc-700"
         value={note.data.content}
         bind:this={noteInput}
         on:input={updateMarkdown}

@@ -5,7 +5,7 @@
 
 <a
   href={`/notes/${note.id}`}
-  class="flex flex-col justify-between md:rounded-lg md:border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900"
+  class="flex flex-col justify-between border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-950 md:rounded-lg md:border"
 >
   <p
     class="truncate break-words text-lg font-semibold text-zinc-700 dark:text-zinc-100"
@@ -18,7 +18,7 @@
   <div class="flex items-center gap-2">
     {#each note.tags as tag}
       <span
-        class="inline pr-2.5 py-3 text-xs font-medium text-gray-700 dark:text-gray-300"
+        class="inline py-3 pr-2.5 text-xs font-medium text-gray-700 dark:text-gray-300"
       >
         #{tag.name}
       </span>

@@ -63,7 +63,7 @@
       autocomplete="off"
       bind:this={input}
       name="reminder"
-      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 placeholder-zinc-600 focus:outline-none dark:text-white"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-950 placeholder-zinc-600 focus:outline-none dark:text-white"
       placeholder="do this"
       required
     />
@@ -72,14 +72,14 @@
     <input
       bind:this={dateInput}
       type="date"
-      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-zinc-600"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-950 focus:outline-none dark:text-zinc-600"
     />
     <div class="text-4xl">at</div>
     <!-- Time -->
     <input
       bind:this={timeInput}
       type="time"
-      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-zinc-600"
+      class="block min-w-0 grow rounded-lg bg-transparent p-2.5 text-4xl text-zinc-950 focus:outline-none dark:text-zinc-600"
     />
     <button
       type="submit"

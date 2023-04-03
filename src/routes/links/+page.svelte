@@ -47,11 +47,9 @@
       action="?/update"
       method="post"
       bind:this={form}
-      class="flex max-lg:flex-wrap items-center"
+      class="flex items-center max-lg:flex-wrap"
     >
-      <label
-        for="first_name"
-        class="text-4xl text-zinc-900 dark:text-white"
+      <label for="first_name" class="text-4xl text-zinc-950 dark:text-white"
         >i will remember
       </label>
       <input
@@ -59,7 +57,7 @@
         id="link"
         name="link"
         on:keydown={addOnEnter}
-        class="min-w-0 block grow rounded-lg bg-transparent max-lg:py-2 lg:p-2.5 text-4xl text-zinc-900 focus:outline-none dark:text-white dark:placeholder-zinc-600"
+        class="block min-w-0 grow rounded-lg bg-transparent text-4xl text-zinc-950 focus:outline-none dark:text-white dark:placeholder-zinc-600 max-lg:py-2 lg:p-2.5"
         placeholder="https://example.com"
         required
       />
