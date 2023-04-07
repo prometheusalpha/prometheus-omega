@@ -68,7 +68,7 @@
   <div class="grid gap-5 md:grid-cols-[repeat(auto-fill,minmax(380px,1fr))]">
     {#each cards as card}
       <div class="items-center gap-4 md:flex">
-        <LinkCard {card} {deleteLink} />
+        <LinkCard {card} {deleteLink}/>
       </div>
     {/each}
   </div>

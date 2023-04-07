@@ -27,6 +27,11 @@
   window.addEventListener("resize", () => {
     truncateLength = truncate();
   });
+
+  let copyLink = async () => {
+    if (!card.link) return;
+    await navigator.clipboard.writeText(card.link);
+  };
 </script>
 
 <div class="relative w-full">
@@ -90,7 +95,7 @@
     </button>
     {#if isContextMenuOpen}
       <div class="absolute right-2 top-12">
-        <ContextMenu deleteLink={() => deleteLink(card.id)} />
+        <ContextMenu deleteLink={() => deleteLink(card.id)} {copyLink} />
       </div>
     {/if}
   {/await}
